@@ -22,9 +22,11 @@ services:
       SESSION_SECRET: dev-secret-change-me
       PORT: "3000"
       NODE_ENV: production
-      # Email verification. DataArt internal relay accepts unauthenticated mail
-      # to @dataart.com recipients, so no SMTP_USER/SMTP_PASS are needed.
-      SMTP_HOST: relay1.dataart.com
+      # Email verification. The relay accepts unauthenticated mail, so no
+      # SMTP_USER/SMTP_PASS are needed. SMTP_HOST is sourced from the local
+      # .env file (see .env.example) to keep the internal relay host out of
+      # version control.
+      SMTP_HOST: ${SMTP_HOST:?set SMTP_HOST in your .env (copy from .env.example)}
       SMTP_PORT: "25"
       SMTP_FROM: Ticketing <noreply@dataart.com>
       # Public origin used to build verification links + the post-verify redirect

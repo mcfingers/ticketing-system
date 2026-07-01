@@ -37,7 +37,15 @@ browser ──> web (nginx :8080) ──/api──> api (Express :3000) ──> 
 
 ## Run it
 
-From the repository root:
+First, create your local environment file (git-ignored) from the template and
+set the SMTP relay host used for verification emails:
+
+```bash
+cp .env.example .env
+# then edit .env and set SMTP_HOST (on the DataArt network this is the internal relay)
+```
+
+Then, from the repository root:
 
 ```bash
 docker compose up --build
@@ -85,15 +93,20 @@ unverified state, and sign-in is blocked (HTTP 403) until you confirm your email
 
 ### Email verification & the SMTP dependency
 
-The verification email is sent through the SMTP relay configured in
-`docker-compose.yml`:
+The verification email is sent through an SMTP relay. `SMTP_HOST` is **not**
+hardcoded in `docker-compose.yml` — it's read from your git-ignored `.env`
+(copied from `.env.example`) so the internal relay host stays out of version
+control. The remaining values are set in `docker-compose.yml`:
 
-| Env var        | Default                          | Purpose                                        |
+| Env var        | Source / default                 | Purpose                                        |
 | -------------- | -------------------------------- | ---------------------------------------------- |
-| `SMTP_HOST`    | `relay1.dataart.com`             | SMTP relay host                                |
+| `SMTP_HOST`    | **`.env`** (see `.env.example`)  | SMTP relay host                                |
 | `SMTP_PORT`    | `25`                             | SMTP port (unauthenticated, `secure:false`)    |
 | `SMTP_FROM`    | `Ticketing <noreply@dataart.com>`| From address                                   |
 | `APP_BASE_URL` | `http://localhost:8080`          | Origin used to build the link + post-verify redirect |
+
+> Compose requires `SMTP_HOST` to be set; `docker compose up` will error with a
+> reminder if your `.env` is missing it.
 
 > **Off-network caveat:** the relay only accepts mail on the DataArt
 > network/VPN. When you're off-network, registration returns **502** because the
