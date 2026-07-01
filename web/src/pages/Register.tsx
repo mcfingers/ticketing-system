@@ -30,6 +30,7 @@ export function Register() {
   if (sentTo) {
     return (
       <div className="auth-wrap">
+        <div className="auth-brand">🎫 TicketTrack</div>
         <div className="card auth-card">
           <h1>Check your email</h1>
           <p>
@@ -46,6 +47,7 @@ export function Register() {
 
   return (
     <div className="auth-wrap">
+      <div className="auth-brand">🎫 TicketTrack</div>
       <form className="card auth-card" onSubmit={onSubmit}>
         <h1>Create account</h1>
         {error && <div className="alert">{error}</div>}

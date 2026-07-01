@@ -58,6 +58,7 @@ export function Login() {
 
   return (
     <div className="auth-wrap">
+      <div className="auth-brand">🎫 TicketTrack</div>
       <form className="card auth-card" onSubmit={onSubmit}>
         <h1>Sign in</h1>
         {banner && <div className={banner.kind}>{banner.text}</div>}
