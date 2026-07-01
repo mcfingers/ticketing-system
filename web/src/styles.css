@@ -1,0 +1,293 @@
+/* ==========================================================================
+   TicketTrack — Bauhaus / Constructivist design system
+   Ported from the "Agile Workflow Board" Google Stitch project.
+   Heavy black outlines, hard offset shadows, primary colour blocks,
+   sharp corners, uppercase Space Grotesk type.
+   ========================================================================== */
+:root {
+  --bg: #f8f9fa;
+  --surface: #ffffff;
+  --ink: #1a1a1a;          /* borders + primary text */
+  --primary: #e63946;      /* Bauhaus red */
+  --primary-hover: #c92c39;
+  --yellow: #ffb703;       /* Bauhaus yellow */
+  --blue: #457b9d;         /* Bauhaus blue */
+  --navy: #1d3557;         /* Bauhaus dark blue */
+  --danger: #e63946;
+  --muted: #4a4a4a;
+
+  --shadow: 6px 6px 0 0 var(--ink);
+  --shadow-sm: 3px 3px 0 0 var(--ink);
+  --shadow-hover: 8px 8px 0 0 var(--ink);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: var(--bg);
+  color: var(--ink);
+}
+
+/* ---- Buttons ---- */
+button {
+  font: inherit;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  cursor: pointer;
+  border: 2px solid var(--ink);
+  background: var(--primary);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+button:hover { transform: translate(1px, 1px); box-shadow: 1px 1px 0 0 var(--ink); background: var(--primary-hover); }
+button:active { transform: translate(3px, 3px); box-shadow: none; }
+button:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: var(--shadow-sm); }
+
+button.ghost {
+  background: var(--surface);
+  color: var(--ink);
+}
+button.ghost:hover { background: var(--yellow); }
+button.danger { background: var(--danger); color: #fff; }
+button.danger:hover { background: var(--primary-hover); }
+button.ghost.danger-outline { color: var(--primary); background: var(--surface); }
+button.ghost.danger-outline:hover { background: var(--primary); color: #fff; }
+
+/* ---- Form controls ---- */
+input, select, textarea {
+  font: inherit;
+  padding: 0.55rem 0.6rem;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--surface);
+  color: var(--ink);
+  width: 100%;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.25);
+}
+select { text-transform: uppercase; font-weight: 600; font-size: 0.82rem; }
+
+label {
+  display: flex; flex-direction: column; gap: 0.3rem;
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--ink);
+}
+label.inline { flex-direction: row; align-items: center; gap: 0.5rem; }
+
+.card {
+  background: var(--surface);
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.muted { color: var(--muted); }
+.hint { font-size: 0.72rem; color: var(--muted); text-transform: none; letter-spacing: 0; font-weight: 500; }
+.center { display: flex; justify-content: center; align-items: center; min-height: 50vh; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+
+.alert {
+  background: var(--primary);
+  border: 2px solid var(--ink);
+  color: #fff;
+  padding: 0.55rem 0.8rem;
+  border-radius: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  box-shadow: var(--shadow-sm);
+}
+
+.notice {
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  padding: 0.55rem 0.8rem;
+  border-radius: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Inline link-style button (e.g. "Resend verification email"). */
+.link-btn {
+  background: none; border: none; box-shadow: none;
+  color: var(--primary); padding: 0; font-size: 0.78rem;
+  text-align: left; width: fit-content; text-decoration: underline;
+}
+.link-btn:hover { background: none; box-shadow: none; transform: none; color: var(--primary-hover); }
+.link-btn:disabled { opacity: 0.5; box-shadow: none; }
+
+/* ---- Auth ---- */
+.auth-wrap { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 1rem; }
+.auth-card { width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 1rem; }
+.auth-card h1 {
+  margin: 0 0 0.25rem; font-size: 2rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: -0.02em;
+}
+.auth-card p { text-transform: none; font-weight: 500; }
+.auth-card .muted { text-transform: none; }
+
+/* ---- App shell ---- */
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.9rem 1.5rem; background: var(--surface);
+  border-bottom: 4px solid var(--ink);
+}
+.brand {
+  font-weight: 700; font-size: 1.35rem; text-transform: uppercase;
+  letter-spacing: -0.02em; display: flex; align-items: center; gap: 0.5rem;
+}
+.topbar-right { display: flex; align-items: center; gap: 1rem; }
+.topbar-right .muted {
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  font-size: 0.75rem; color: var(--ink);
+}
+
+.toolbar {
+  display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+  padding: 1.25rem 1.5rem 0.75rem;
+}
+.toolbar-alert { margin: 0 1.5rem; cursor: pointer; }
+
+.filterbar {
+  display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+  padding: 0 1.5rem 0.75rem;
+}
+.filterbar select { width: auto; }
+.filter-search { width: auto; min-width: 220px; }
+.filter-count { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.team-picker, .member-manager { display: flex; align-items: center; gap: 0.5rem; position: relative; }
+.inline { display: flex; align-items: center; gap: 0.4rem; }
+.inline input, .team-picker select { width: auto; }
+
+.popover {
+  position: absolute; top: 115%; left: 0; z-index: 20; width: 300px;
+  display: flex; flex-direction: column; gap: 0.6rem;
+}
+.member-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; max-height: 220px; overflow: auto; }
+.member-list li { font-size: 0.85rem; }
+.member-list .muted { text-transform: none; letter-spacing: 0; }
+.badge {
+  display: inline-block;
+  font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  background: var(--yellow); color: var(--ink);
+  border: 2px solid var(--ink);
+  padding: 0.05rem 0.35rem; border-radius: 0; margin-left: 0.4rem;
+}
+
+/* ---- Board ---- */
+.board {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem;
+  padding: 1.5rem; align-items: start; flex: 1;
+}
+.column {
+  background: transparent; border-radius: 0; padding: 0;
+  display: flex; flex-direction: column; min-height: 200px;
+}
+.column-over .column-body {
+  outline: 3px dashed var(--primary); outline-offset: 4px;
+}
+
+.column-head {
+  display: flex; justify-content: space-between; align-items: center;
+  font-weight: 700; font-size: 0.8rem; text-transform: uppercase;
+  letter-spacing: 0.16em; color: #fff;
+  padding: 0.85rem 1rem; margin-bottom: 1.25rem;
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow-sm);
+  /* asymmetric constructivist header */
+  clip-path: polygon(0 0, 100% 0, 96% 100%, 0% 100%);
+}
+/* Per-status colour blocks (mirrors the Stitch board columns). */
+.column-head.status-NEW { background: var(--blue); }
+.column-head.status-READY_FOR_IMPLEMENTATION { background: var(--yellow); color: var(--ink); }
+.column-head.status-IN_PROGRESS { background: var(--primary); }
+.column-head.status-READY_FOR_ACCEPTANCE { background: var(--navy); }
+.column-head.status-DONE { background: var(--ink); }
+
+.count {
+  background: var(--surface); color: var(--ink);
+  border: 2px solid var(--ink); border-radius: 0;
+  padding: 0 0.45rem; font-size: 0.72rem; font-weight: 700;
+  min-width: 1.6rem; text-align: center;
+}
+.column-body { display: flex; flex-direction: column; gap: 1.1rem; min-height: 48px; padding: 2px; }
+
+.ticket {
+  background: var(--surface); border: 2px solid var(--ink); border-radius: 0;
+  padding: 0.85rem 0.9rem; box-shadow: var(--shadow);
+  cursor: grab; user-select: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.ticket:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-hover); }
+.ticket:active { cursor: grabbing; }
+.ticket-title {
+  font-size: 1rem; font-weight: 700; line-height: 1.15;
+  text-transform: uppercase; letter-spacing: -0.01em; margin-top: 0.25rem;
+}
+.ticket-assignee {
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--ink); margin-top: 0.6rem;
+}
+.ticket-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.35rem; }
+.ticket-epic {
+  display: inline-block; font-size: 0.6rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--ink); background: var(--surface);
+  border: 2px solid var(--ink); border-radius: 0;
+  padding: 0.1rem 0.4rem; max-width: 100%;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.type-badge {
+  display: inline-block; font-size: 0.6rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  border: 2px solid var(--ink); border-radius: 0;
+  padding: 0.1rem 0.4rem; white-space: nowrap;
+}
+.type-bug { color: #fff; background: var(--primary); }
+.type-feature { color: var(--ink); background: var(--yellow); }
+.type-fix { color: #fff; background: var(--blue); }
+
+/* ---- Epics popover ---- */
+.epic-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.4rem; }
+.epic-row .inline button, .epic-edit .inline button { padding: 0.25rem 0.5rem; font-size: 0.68rem; }
+.epic-edit, .epic-create { display: flex; flex-direction: column; gap: 0.4rem; }
+.epic-create { border-top: 2px solid var(--ink); padding-top: 0.7rem; }
+
+/* ---- Modal ---- */
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(230, 57, 70, 0.35);
+  backdrop-filter: blur(2px);
+  display: flex; justify-content: center; align-items: center; z-index: 50; padding: 1rem;
+}
+.modal {
+  width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 0.9rem;
+  border-width: 4px; box-shadow: var(--shadow);
+}
+.modal h2 {
+  margin: 0; font-size: 1.9rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.95;
+  color: var(--primary);
+}
+.modal-actions { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+.modal-actions .spacer { flex: 1; }
+.modal textarea { resize: vertical; }
+
+@media (max-width: 900px) {
+  .board { grid-template-columns: 1fr; }
+}

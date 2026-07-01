@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ticketing
+      POSTGRES_PASSWORD: ticketing
+      POSTGRES_DB: ticketing
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ticketing -d ticketing"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  api:
+    build: ./api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://ticketing:ticketing@db:5432/ticketing
+      SESSION_SECRET: dev-secret-change-me
+      PORT: "3000"
+      NODE_ENV: production
+      # Email verification. DataArt internal relay accepts unauthenticated mail
+      # to @dataart.com recipients, so no SMTP_USER/SMTP_PASS are needed.
+      SMTP_HOST: relay1.dataart.com
+      SMTP_PORT: "25"
+      SMTP_FROM: Ticketing <noreply@dataart.com>
+      # Public origin used to build verification links + the post-verify redirect
+      # (the web app on :8080 proxies /api to this service).
+      APP_BASE_URL: http://localhost:8080
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build: ./web
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+volumes:
+  db-data:
